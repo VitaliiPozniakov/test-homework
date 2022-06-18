@@ -1,0 +1,166 @@
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+#search-box {
+  font: inherit;
+  padding: 8px;
+  max-width: 320px;
+  margin-bottom: 16px;
+}
+
+#search-box:focus-visible {
+  border: 1px solid #2196f3;
+  outline: none;
+
+}
+
+
+
+:root {
+  --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  --animation-duration: 250ms;
+
+  /* --sl-caption-color: red;
+  --sl-overlay-background: red; */
+}
+
+/* .sl-wrapper .sl-image .sl-caption {
+  color: brown;
+  text-align: center;
+} */
+
+.btn.is-hidden {
+  display: none;
+  /* background-color: aqua;
+  color: red */
+}
+
+.spinner.is-hidden {
+display: none;
+}
+
+
+
+/* 
+.gallery {
+  display: grid;
+  max-width: 1140px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-auto-rows: 240px;
+  grid-gap: 12px;
+  justify-content: center;
+  padding: 0;
+  list-style: none;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.gallery__item {
+  position: relative;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+}
+
+.gallery__image:hover {
+  transform: scale(1.03);
+}
+
+.gallery__image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  transition: transform var(--animation-duration) var(--timing-function);
+}
+
+.gallery__link {
+  display: block;
+  text-decoration: none;
+  height: 100%;
+}
+
+.gallery__link:hover {
+  cursor: zoom-in;
+}
+
+
+ */
+
+
+.gallery{
+  display: flex;
+  flex-wrap: wrap;
+  margin: -15px;
+
+}
+
+.gallery__item{
+
+  flex-basis: calc((100% - 4 * 30px) / 4);
+  margin: 15px;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+p {
+  margin-bottom: 4px;
+  color: black;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 2;
+  letter-spacing: 0.06em;
+}
+
+
+
+.bold{
+  margin-bottom: 4px;
+  color: black;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 2;
+  letter-spacing: 0.06em;
+}
+
+a{
+  text-decoration: none;
+  display: block;
+}
+
+a:hover, a:focus {
+  box-shadow: 1px 4px 6px 0px rgba(0, 0, 0, 0.16), 0px 4px 4px 0px rgba(0, 0, 0, 0.06),
+  0px 1px 1px 0px rgba(0, 0, 0, 0.12);
+  transform: scale(1.03);
+}
+
+.info{
+  display: flex;
+  text-align: center;
+}
+
+
+
+.info-item :not(:last-child) {
+margin-right: 5px;
+}
+
+.form-inline{
+  margin-bottom: 10px;
+}
+
+.button{
+  margin-top: 30px;
+  margin-left: 15px;
+}
+
