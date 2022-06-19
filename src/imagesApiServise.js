@@ -22,11 +22,10 @@ export default class ImagesApiService {
     });
 
     const url = `${BASE_URL}/?${searchParams}`;
-
     const images = await axios.get(url);
-    console.log(images);
 
     this.incrementPage();
+
     return images.data;
   }
 
