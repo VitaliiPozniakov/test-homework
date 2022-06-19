@@ -5,6 +5,7 @@ export function makeImageMarkup (chooseImage) {
     .map(({webformatURL, largeImageURL, tags, likes, views, comments, downloads}) => {
        
       return `  
+      <article class="post">
  <a class="gallery__item" href="${largeImageURL}">
  <img src="${webformatURL}" alt="${tags}" loading="lazy" />
 
@@ -25,6 +26,7 @@ export function makeImageMarkup (chooseImage) {
   </p>
 </div>
 </a> 
+</article>
           `;    
         })
     .join("");
