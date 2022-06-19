@@ -13,12 +13,10 @@ const imagesApiService = new ImagesApiService();
 //   hidden: true,
 // });
 
-const {form, gallery} = {
+const { form, gallery } = {
   form: document.querySelector(`.js-search-form`),
   gallery: document.querySelector(`.container`),
 };
-
-
 
 form.addEventListener('submit', onFormSubmit);
 // btnLoadMore.refs.button.addEventListener(`click`, fetchAndRenderImages);
@@ -29,17 +27,17 @@ async function onFormSubmit(e) {
   imagesApiService.query = e.currentTarget.elements.searchQuery.value.trim();
 
   if (imagesApiService.query === null || imagesApiService.query === ``) {
-    return
+    return;
   }
 
   // btnLoadMore.show();
   imagesApiService.resetPage();
   clearContainer();
- const images = await fetchAndRenderImages();
+  const images = await fetchAndRenderImages();
 
-    if (images.hits.length > 0) {
-      Notify.info(`Hooray! We found ${images.totalHits} images.`);
-    }
+  if (images.hits.length > 0) {
+    Notify.info(`Hooray! We found ${images.totalHits} images.`);
+  }
 }
 
 async function fetchAndRenderImages() {
@@ -49,15 +47,14 @@ async function fetchAndRenderImages() {
 
     // console.log(images)
 
-      let imagesContainer = document.querySelectorAll(`.gallery__item`);
-      if (images.totalHits <= imagesContainer.length) {
-        // btnLoadMore.hide();
-        Notify.failure(
-          'Ups We are sorry, but you have reached the end of search results. '
-        );
-        return;
-      }
-
+    let imagesContainer = document.querySelectorAll(`.gallery__item`);
+    if (images.totalHits <= imagesContainer.length) {
+      // btnLoadMore.hide();
+      Notify.failure(
+        'Ups We are sorry, but you have reached the end of search results. '
+      );
+      return;
+    }
 
     if (images.hits.length === 0) {
       Notify.info(
@@ -73,19 +70,15 @@ async function fetchAndRenderImages() {
     renderImageCard(imageMarkup);
     imagesContainer = document.querySelectorAll(`.gallery__item`);
 
+    //   const { height: cardHeight } = document
+    //   .querySelector('.gallery')
+    //   .firstElementChild.getBoundingClientRect();
+    // window.scrollBy({
+    //   top: cardHeight * 10,
+    //   behavior: 'smooth',
+    // });
 
-  //   const { height: cardHeight } = document
-  //   .querySelector('.gallery')
-  //   .firstElementChild.getBoundingClientRect();
-  // window.scrollBy({
-  //   top: cardHeight * 10,
-  //   behavior: 'smooth',
-  // });
-
-
-
-return images
-
+    return images;
   } catch (error) {
     showError();
   }
@@ -114,9 +107,6 @@ function onGalleryClick(e) {
   // lightbox.refresh();
 }
 
-
-
-
 // function infinityScroll() {
 //   while(true) {
 //     // нижняя граница документа
@@ -131,23 +121,30 @@ function onGalleryClick(e) {
 //   }
 // }
 
+window.addEventListener(
+  'scroll',
+  debounce(() => {
+    const documentRect = document.documentElement.getBoundingClientRect();
+    console.log('bottom', documentRect.bottom)
+    if (documentRect.bottom < document.documentElement.clientHeight + 150) {
+      console.log('done');
+      fetchAndRenderImages()
+    }
+  }, 300)
+);
 
-window.addEventListener('scroll', () => {
-  const documentRect = document.documentElement.getBoundingClientRect()
-  // console.log('bottom', documentRect.bottom)
-  if (documentRect.bottom < document.documentElement.clientHeight + 150) {
-   
-    console.log("Scroll handler call every 300ms")
-    throttle(   () => {
-      console.log("htnehn");
-    }, 300);
-   
-  }
-    
-})
+// window.addEventListener('scroll', () => {
+//   const documentRect = document.documentElement.getBoundingClientRect();
+//   // console.log('bottom', documentRect.bottom)
+//   if (documentRect.bottom < document.documentElement.clientHeight + 150) {
+//     console.log('Scroll handler call every 300ms');
+//     throttle(() => {
+//       console.log('htnehn');
+//     }, 500);
+//   }
+// });
 
 // populate(); // инициализация документа
-
 
 // import InfiniteScroll from 'infinite-scroll';
 
