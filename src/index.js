@@ -3,13 +3,15 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import ImagesApiService from './imagesApiServise';
 import { makeImageMarkup } from './makeImageMarkup';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import BtnLoadMore from './btn-load-more';
+// import BtnLoadMore from './btn-load-more';
+import debounce from 'lodash.debounce';
+import throttle from 'lodash.throttle';
 
 const imagesApiService = new ImagesApiService();
-const btnLoadMore = new BtnLoadMore({
-  selector: `[data-action="load-more"]`,
-  hidden: true,
-});
+// const btnLoadMore = new BtnLoadMore({
+//   selector: `[data-action="load-more"]`,
+//   hidden: true,
+// });
 
 const {form, gallery} = {
   form: document.querySelector(`.js-search-form`),
@@ -19,7 +21,7 @@ const {form, gallery} = {
 
 
 form.addEventListener('submit', onFormSubmit);
-btnLoadMore.refs.button.addEventListener(`click`, fetchAndRenderImages);
+// btnLoadMore.refs.button.addEventListener(`click`, fetchAndRenderImages);
 gallery.addEventListener(`click`, onGalleryClick);
 
 async function onFormSubmit(e) {
@@ -30,7 +32,7 @@ async function onFormSubmit(e) {
     return
   }
 
-  btnLoadMore.show();
+  // btnLoadMore.show();
   imagesApiService.resetPage();
   clearContainer();
  const images = await fetchAndRenderImages();
@@ -42,14 +44,14 @@ async function onFormSubmit(e) {
 
 async function fetchAndRenderImages() {
   try {
-    btnLoadMore.disable();
+    // btnLoadMore.disable();
     const images = await imagesApiService.fetchImages();
 
     // console.log(images)
 
       let imagesContainer = document.querySelectorAll(`.gallery__item`);
       if (images.totalHits <= imagesContainer.length) {
-        btnLoadMore.hide();
+        // btnLoadMore.hide();
         Notify.failure(
           'Ups We are sorry, but you have reached the end of search results. '
         );
@@ -61,13 +63,13 @@ async function fetchAndRenderImages() {
       Notify.info(
         'Sorry, there are no images matching your search query. Please try again.'
       );
-      btnLoadMore.hide();
+      // btnLoadMore.hide();
       gallery.innerHTML = '';
       return;
     }
 
     const imageMarkup = await makeImageMarkup(images);
-    btnLoadMore.enable();
+    // btnLoadMore.enable();
     renderImageCard(imageMarkup);
     imagesContainer = document.querySelectorAll(`.gallery__item`);
 
@@ -132,10 +134,14 @@ function onGalleryClick(e) {
 
 window.addEventListener('scroll', () => {
   const documentRect = document.documentElement.getBoundingClientRect()
-  console.log('bottom', documentRect.bottom)
+  // console.log('bottom', documentRect.bottom)
   if (documentRect.bottom < document.documentElement.clientHeight + 150) {
-    console.log('DONE')
-    fetchAndRenderImages()
+   
+    console.log("Scroll handler call every 300ms")
+    throttle(   () => {
+      console.log("htnehn");
+    }, 300);
+   
   }
     
 })
